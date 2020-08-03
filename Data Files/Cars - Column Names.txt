@@ -1,0 +1,2 @@
+ID, Model, Initial HorsePower, Condition, Initial Driver Ability, Balance, Current HorsePower, Current Driver Ability, Text Color, Bg Color
+---------------------------------------------------------------------------------------------------------------------------------------------

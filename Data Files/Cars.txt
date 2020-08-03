@@ -1,0 +1,6 @@
+N12,Stratos,215,100,95,19600.0,220,95,no color,no color
+A12,Fabia,295,100,80,22000.00,295,80,black,white
+J1,DB5,260,98,70,23020.00,260,70,black,white
+U5,Impreza,280,100,80,21970.0,280,80,blue,black
+A1,Jirda,105,85,90,16150.0,105,90,blue,green
+T1,Manta,260,100,95,19700.0,264,95,purple,green

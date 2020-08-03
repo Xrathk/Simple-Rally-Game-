@@ -2,7 +2,6 @@ package rx.classes;
 
 public class Constants {
     // Data files
-    //public final static String carDataFile = "C:\\Users\\AK\\Desktop\\Programing things - VMs - Dat. Sci - Other\\Java\\Practice\\Rallycross\\Rallycross-java\\Data Files\\Cars.txt";
     public final static String carDataFile = "Data Files\\Cars.txt";
 
     // Color codes

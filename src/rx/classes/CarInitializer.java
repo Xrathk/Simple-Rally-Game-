@@ -17,12 +17,5 @@ public class CarInitializer {
     public static void main(String[] args) throws IOException {
         MenuMethods.ShowMainMenu();
 
-        /* Testing purposes
-        System.out.println("Creating a car...");
-        Car car1 = new Car("B16","Peugeot",300,95,100,14000.00);
-        System.out.println(car1);
-        System.out.println(car1.getBalance());
-        //car1.SaveEntry();
-         */
     }
 }

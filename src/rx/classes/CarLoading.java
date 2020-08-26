@@ -52,6 +52,23 @@ public class CarLoading {
     }
 
     /**
+     * This function gets the initial horsepower of a car.
+     * @param ID the ID the user entered
+     * @return this car's initial horsepower
+     */
+    public static int GetInitialHorsepower(String ID) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(Constants.carDataFile));
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] CarData = line.split(",");
+            if (CarData[0].equals(ID)) {
+                return Integer.parseInt(CarData[2]);
+            }
+        }
+        return 0;
+    }
+
+    /**
      * Updates the properties of a car (HP,DA,condition, colors and balance). (IN PROGRESS)
      * @param ID of car to modift
      * @param property which property changes

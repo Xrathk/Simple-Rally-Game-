@@ -49,4 +49,21 @@ public class InputMethods {
         IIO.setInputValidity(true);
         return IIO;
     }
+
+    /**
+     * Checks whether a user has entered yes or no.
+     * @return yes, no or invalid
+     */
+    public static String YesOrNo() {
+        String answer;
+        String[] options2 = {"Yes", "No"};
+        Scanner in2 = new Scanner(System.in);
+        MenuMethods.ShowMenuOptions(options2);
+        try {
+            answer = in2.nextLine();
+        } catch (Exception e) {
+            answer = "";
+        }
+        return answer;
+    }
 }

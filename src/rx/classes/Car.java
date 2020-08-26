@@ -80,6 +80,11 @@ public class Car {
         return String.format(Locale.ITALY,"Balance: %.2f",balance);
     }
 
+    public double getBalanceFloat() {
+        return this.balance;
+    }
+
+
     public void setBalance(double balance) {
         this.balance = balance;
     }
@@ -180,7 +185,7 @@ public class Car {
      * NOT COMPLETE
      * Registers car to a race.
      */
-    public void RegisterToRace(){
+    public void RegisterToRace() {
 
     }
 
@@ -195,25 +200,55 @@ public class Car {
     }
 
     /**
-     * NOT COMPLETE
-     * Calculates cost of car repair. Each point costs 20 credits (depends on class).
+     * Calculates cost of car repair. Each point costs X credits (depends on horsepower).
      * @return cost of repairs
      */
-    public float CalculateRepairCost(){
-        return (float) (100 - condition)*20;
+    public float CalculateRepairCost() {
+        if (horsePower < 100) {
+            return (float) (100 - condition) * 20;
+        } else if (horsePower < 200) {
+            return (float) (100 - condition) * 35;
+        } else if (horsePower < 300) {
+            return (float) (100 - condition) * 50;
+        } else if (horsePower < 400) {
+            return (float) (100 - condition) * 75;
+        } else if (horsePower < 500) {
+            return (float) (100 - condition) * 95;
+        } else {
+            return (float) (100 - condition) * 100;
+        }
     }
 
     /**
-     * NOT COMPLETE
-     * Calculates cost of car upgrade. Each point costs 150 credits (depends on class).
+     * Calculates cost of car upgrade. Each point costs X credits (depends on class).
      * @return cost of upgrade for 1 HP
      */
-    public float CalculateUpgradeCost(){
-        return (float) 150;
+    public float CalculateUpgradeCost() {
+        if (horsePower < 100) {
+            return (float) 150;
+        } else if (horsePower < 200) {
+            return (float) 180;
+        } else if (horsePower < 300) {
+            return (float) 220;
+        } else if (horsePower < 400) {
+            return (float) 280;
+        } else if (horsePower < 500) {
+            return (float) 350;
+        } else {
+            return (float) 500;
+        }
     }
 
     /**
-     * NOT COMPLETE
+     * Calculates the max allowed horsepower for this car. Maximum is 25% above the original value (at car creation).
+     * @return max allowed horsepower for this car
+     */
+    public int CalculateMaxHorsepower() throws IOException {
+        int initHP = CarLoading.GetInitialHorsepower(ID);
+        return (int) ((float) 125/100 * initHP);
+    }
+
+    /**
      * Restores the user's car to perfect condition.
      */
     public void RepairCar() {
@@ -221,16 +256,6 @@ public class Car {
     }
 
     /**
-     * NOT COMPLETE
-     * Upgrades car. New horsepower number depends on how big balance is. 25% higher than initial horsepower is max.
-     * @return the car's new horsepower
-     */
-    public int UpgradeCar(){
-        return (int) Math.ceil((float) 105/100* (float) horsePower);
-    }
-
-    /**
-     * NOT COMPLETE
      * Updates car's balance.
      * @param amount by how much the balance increases or decreases
      */

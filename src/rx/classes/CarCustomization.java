@@ -39,47 +39,39 @@ public class CarCustomization {
                         break;
                     }
                     do {
-                        String[] options2 = {"Yes", "No"};
-                        Scanner in2 = new Scanner(System.in);
                         float repairCost = userCar.CalculateRepairCost();
                         System.out.printf("Your car's current condition is %d.%n",userCar.getCondition());
                         System.out.printf("Would you like to repair your car? A full repair costs %.2f credits.%n",repairCost);
                         System.out.printf("Current %s%n",userCar.getBalance());
-                        MenuMethods.ShowMenuOptions(options2);
-                        try {
-                            choice2 = in2.nextLine();
-                        } catch (Exception e) {
-                            choice2 = "";
-                        }
-                        if (choice2.equals("Yes")) {
+                        choice2 = InputMethods.YesOrNo().toLowerCase();
+                        if (choice2.equals("yes")) {
                             // Repairing car
                             userCar.UpdateBalance(-1*repairCost);
                             userCar.RepairCar();
                             System.out.printf("Your car's new condition is %d.%n",userCar.getCondition());
                             System.out.printf("New %s%n",userCar.getBalance());
                             CarLoading.UpdateCar(userCar.getId(),"Condition",100, repairCost);
-                        } else if (choice2.equals("No")) {
+                        } else if (choice2.equals("no")) {
                             System.out.printf("Car's condition remains at: %d%n",userCar.getCondition());
                         } else {
                             System.out.println("Please enter \"Yes\" or \"No\".");
                         }
-                    } while (!choice2.equals("Yes") && !choice2.equals("No"));
+                    } while (!choice2.equals("yes") && !choice2.equals("no"));
                     break;
                 case 3: // UpgradeCar
                     System.out.println("You can upgrade your car by increasing its horsepower. Do you want to proceed?");
-                    String[] options2 = {"Yes", "No"};
-                    Scanner in3 = new Scanner(System.in);
-                    MenuMethods.ShowMenuOptions(options2);
-                    try {
-                        choice2 = in3.nextLine();
-                    } catch (Exception e) {
-                        choice2 = "";
-                    }
-                    if (choice2.equals("Yes")) {
+                    choice2 = InputMethods.YesOrNo().toLowerCase();
+                    if (choice2.equals("yes")) {
                         // Upgrading car
                         int choiceUp;
                         float upgradeCost = userCar.CalculateUpgradeCost();
+                        int maxHP = userCar.CalculateMaxHorsepower();
                         System.out.printf("Your car's current horsepower is: %d%n",userCar.getHorsePower());
+                        System.out.printf("Your car's maximum allowed horsepower is: %d%n",maxHP);
+                        if (userCar.getHorsePower() >= maxHP) {
+                            System.out.println("Your car is already fully upgraded!");
+                            break;
+                        }
                         System.out.printf("Increasing your car's horsepower by 1 costs %.2f credits. Please enter your desired value for the increase:%n",upgradeCost);
                         Scanner in4 = new Scanner(System.in);
                         try {
@@ -89,40 +81,45 @@ public class CarCustomization {
                             System.out.printf("Car's horsepower remains at: %d%n",userCar.getHorsePower());
                             break;
                         }
-                        System.out.printf("Upgrading your car's horsepower by %d would cost %.2f. Would you like to finalize the upgrade?", choiceUp, upgradeCost*choiceUp);
-                        Scanner in5 = new Scanner(System.in);
-                        MenuMethods.ShowMenuOptions(options2);
-                        try {
-                            choice2 = in5.nextLine();
-                        } catch (Exception e) {
-                            choice2 = "";
-                        }
-                        if (choice2.equals("Yes")) {
-                            System.out.println("Upgrading car...\n");
-                            MenuMethods.WaitTime(2);
-                            System.out.println("Upgrades complete!");
-                            System.out.printf("Your car's new horsepower is: %d%n",userCar.getHorsePower()+choiceUp);
-                            System.out.println("Reload your car to see the changes.");
-                            CarLoading.UpdateCar(userCar.getId(),"HorsePower",userCar.getHorsePower()+choiceUp, upgradeCost*choiceUp);
 
-                        } else if (choice2.equals("No")) {
+                        if (userCar.getHorsePower() + choiceUp > maxHP) {
+                            System.out.println("You're not allowed to increase your car's horsepower by that amount!");
+                            System.out.printf("Your car's maximum allowed horsepower is: %d%n",maxHP);
+                            break;
+                        }
+
+                        System.out.printf("Upgrading your car's horsepower by %d would cost %.2f. Would you like to finalize the upgrade?", choiceUp, upgradeCost*choiceUp);
+                        choice2 = InputMethods.YesOrNo().toLowerCase();
+                        if (choice2.equals("yes")) {
+                            if (userCar.getBalanceFloat() < upgradeCost*choiceUp) {
+                                System.out.println("Sorry, but you can't afford these upgrades.");
+                            } else {
+                                System.out.println("Upgrading car...\n");
+                                MenuMethods.WaitTime(2);
+                                System.out.println("Upgrades complete!");
+                                System.out.printf("Your car's new horsepower is: %d%n", userCar.getHorsePower() + choiceUp);
+                                CarLoading.UpdateCar(userCar.getId(), "HorsePower", userCar.getHorsePower() + choiceUp, upgradeCost * choiceUp);
+                            }
+
+                        } else if (choice2.equals("no")) {
                             System.out.println("Upgrades cancelled.");
                             System.out.printf("Car's horsepower remains at: %d%n",userCar.getHorsePower());
                         } else {
                             System.out.println("Incorrect input. Upgrades cancelled.");
                         }
-                    } else if (choice2.equals("No")) {
+                    } else if (choice2.equals("no")) {
                         System.out.printf("Car's horsepower remains at: %d%n",userCar.getHorsePower());
                     } else {
                         System.out.println("Please enter \"Yes\" or \"No\".");
                     }
+                    userCar = CarLoading.LoadCar(userCar.getId());
                     break;
                 case 4: // Customize car
                     String choice3;
                     int coloringComplete = 0; // when both text and background have been colored (=2), we exit
                     Scanner in2 = new Scanner(System.in);
                     System.out.println("What color would you like your car to be? Your options are:");
-                    System.out.println("Black | Red | Green | Yellow | Blue | Purple | Cyan | White | No Color | No change");
+                    System.out.println("Black | Red | Green | Yellow | Blue | Purple | Cyan | Grey | No Color | No change");
                     System.out.println("Enter your color for text (must be one of the above):");
                     // Coloring text
                     do {
@@ -147,12 +144,12 @@ public class CarCustomization {
                                 coloringComplete += 1;
                             } else {
                                 System.out.println("Invalid input. Your options are:");
-                                System.out.println("Black | Red | Green | Yellow | Blue | Purple | Cyan | White | No color | No change");
+                                System.out.println("Black | Red | Green | Yellow | Blue | Purple | Cyan | Grey | No color | No change");
                             }
                         }
                     } while (coloringComplete != 1);
                     // Coloring background
-                    System.out.println("Black | Red | Green | Yellow | Blue | Purple | Cyan | White | No Color | No change");
+                    System.out.println("Black | Red | Green | Yellow | Blue | Purple | Cyan | Grey | No Color | No change");
                     System.out.println("Enter your color for background (must be one of the above):");
                     do {
                         try {
@@ -176,11 +173,12 @@ public class CarCustomization {
                                 coloringComplete += 1;
                             } else {
                                 System.out.println("Invalid input. Your options are:");
-                                System.out.println("Black | Red | Green | Yellow | Blue | Purple | Cyan | White | No Color | No change");
+                                System.out.println("Black | Red | Green | Yellow | Blue | Purple | Cyan | Grey | No Color | No change");
                             }
                         }
                     } while (coloringComplete != 2);
-                    System.out.println("\nAll changes saved. Reload your car to see them.\n");
+                    System.out.println("\nAll changes saved.\n");
+                    userCar = CarLoading.LoadCar(userCar.getId());
                     break;
                 case 5:  // Exit
                     System.out.println("Returning to main menu...");

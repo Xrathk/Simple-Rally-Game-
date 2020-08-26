@@ -3,7 +3,7 @@ package rx.classes;
 import java.io.IOException;
 
 /**
- * Class that creates cars.
+ * Game class.
  *
  * @author AK
  * @version 1.0
@@ -11,7 +11,6 @@ import java.io.IOException;
  */
 
 public class CarInitializer {
-
 
     // Main
     public static void main(String[] args) throws IOException {

@@ -57,10 +57,10 @@ public class InputMethods {
     public static String YesOrNo() {
         String answer;
         String[] options2 = {"Yes", "No"};
-        Scanner in2 = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         MenuMethods.ShowMenuOptions(options2);
         try {
-            answer = in2.nextLine();
+            answer = in.nextLine();
         } catch (Exception e) {
             answer = "";
         }

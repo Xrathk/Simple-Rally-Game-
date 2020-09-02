@@ -14,7 +14,7 @@ public class ColoringMethods {
         Colors.put("blue", Constants.ANSI_BLUE);
         Colors.put("purple", Constants.ANSI_PURPLE);
         Colors.put("cyan", Constants.ANSI_CYAN);
-        Colors.put("white", Constants.ANSI_WHITE);
+        Colors.put("grey", Constants.ANSI_WHITE);
         Colors.put("no color", Constants.ANSI_RESET);
         return Colors;
     }
@@ -29,7 +29,7 @@ public class ColoringMethods {
         Colors.put("blue", Constants.ANSI_BLUE_BACKGROUND);
         Colors.put("purple", Constants.ANSI_PURPLE_BACKGROUND);
         Colors.put("cyan", Constants.ANSI_CYAN_BACKGROUND);
-        Colors.put("white", Constants.ANSI_WHITE_BACKGROUND);
+        Colors.put("grey", Constants.ANSI_WHITE_BACKGROUND);
         Colors.put("no color", Constants.ANSI_RESET);
         return Colors;
     }
@@ -44,7 +44,7 @@ public class ColoringMethods {
         Colors.put("blue", 5);
         Colors.put("purple", 6);
         Colors.put("cyan", 7);
-        Colors.put("white", 8);
+        Colors.put("grey", 8);
         Colors.put("no color", 9);
         return Colors;
     }
@@ -59,7 +59,7 @@ public class ColoringMethods {
         Colors.put(5, "blue");
         Colors.put(6, "purple");
         Colors.put(7, "cyan");
-        Colors.put(8, "white");
+        Colors.put(8, "grey");
         Colors.put(9, "no color");
         return Colors;
     }

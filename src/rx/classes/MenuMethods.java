@@ -1,7 +1,6 @@
 package rx.classes;
 
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 import java.nio.file.*;
@@ -21,7 +20,7 @@ public class MenuMethods {
      * This class shows the main menu.
      */
     public static void ShowMainMenu() throws IOException{
-        int choice;
+        IntegerInputObject choice;
         String[] options = {"Create New Car", "Load Car", "Create New Race", "Load Race", "Exit"};
 
         // Show titles
@@ -36,22 +35,20 @@ public class MenuMethods {
         System.out.println("What would you like to do?");
         do {
             // Get user input, if 5 is the input exit program
-            Scanner in = new Scanner(System.in);
             ShowMenuOptions(options);
-            try {
-                choice = in.nextInt();
-            } catch (Exception e) {
-                choice = 0;
-            }
-            switch (choice) {
+            choice = InputMethods.isIntegerInputValid();
+            switch (choice.getIntegerInput()) {
+
                 case 1:  // Create car
                     System.out.println("Creating car...");
                     CarCreation.CreateCar();
                     break;
+
                 case 2:  // Load car
                     boolean carExists;
                     Car userCar;
                     System.out.println("Loading car data...\n");
+                    System.out.println(Constants.ANSI_BLUE + Constants.ANSI_WHITE_BACKGROUND + CarLoading.CarList() + Constants.ANSI_RESET);
                     // Get Car ID from user
                     System.out.println("Enter a Car ID:");
                     StringInputObject UserCarID;
@@ -73,21 +70,24 @@ public class MenuMethods {
                     }
 
                     break;
+
                 case 3: // Create race
                     System.out.println("Creating race...");
                     break;
+
                 case 4: // Load race
                     System.out.println("Loading race data...");
                     break;
+
                 case 5:  // Exit
                     System.out.println("Have a nice day!");
-                    in.close();
                     break;
+
                 default:
                     System.out.println("Please enter a proper number from 1 to 5.");
                     break;
             }
-        } while (choice != 5);
+        } while (choice.getIntegerInput() != 5);
 
         // Exit program
         System.exit(1);

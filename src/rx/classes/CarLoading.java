@@ -52,6 +52,30 @@ public class CarLoading {
     }
 
     /**
+     * Displays a list of all cars in the files, so user can load the correct one
+     * @return list of car IDs
+     */
+    public static String CarList() throws IOException {
+        StringBuilder list = new StringBuilder();
+        list.append("| Car ID :: Car Model |");
+        list.append("\n");
+        list.append("------------------------");
+        list.append("\n");
+        BufferedReader br = new BufferedReader(new FileReader(Constants.carDataFile));
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] CarData = line.split(",");
+            list.append("| ");
+            list.append(CarData[0]);
+            list.append(" :: ");
+            list.append(CarData[1]);
+            list.append(" |\n");
+        }
+        list.append("\n");
+        return list.toString();
+    }
+
+    /**
      * This function gets the initial horsepower of a car.
      * @param ID the ID the user entered
      * @return this car's initial horsepower
